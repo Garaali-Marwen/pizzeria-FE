@@ -1,0 +1,20 @@
+.client-name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.additional-info{
+    width: 100%;
+    padding: 10px;
+    text-align: start;
+}
+
+
+.ingredient-name{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: rgba(87, 87, 87, 0.29);
+    border-radius: 50px;
+}

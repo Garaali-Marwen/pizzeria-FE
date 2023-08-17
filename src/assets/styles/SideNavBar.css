@@ -1,0 +1,152 @@
+.side-nav-container {
+    background-color: #333230;
+    width: 300px;
+    height: 100vh;
+    position: fixed;
+    color: #fbfcfd;
+    transition: 0.4s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.side-nav-container-NX {
+    width: 85px;
+}
+
+.nav-upper,
+.nav-heading,
+.nav-menu {
+    display: grid;
+}
+
+.nav-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 75px;
+}
+
+.nav-brand {
+    color: #fbfcfd;
+}
+
+
+.hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 0;
+}
+
+.hamburger span {
+    display: block;
+    margin-top: 5px;
+    background-color: #fbfcfd;
+    border-radius: 15px;
+    height: 5px;
+    width: 35px;
+    transition: 0.4s;
+}
+
+.hamburger:hover span {
+    background-color: #fbfcfd;
+}
+
+/*
+.hamburger-in:hover span:nth-child(1) {
+    width: 25px;
+    transform: translateY(4px) rotate(-25deg);
+}
+
+.hamburger-in:hover span:nth-child(2) {
+    width: 40px;
+}
+
+.hamburger-in:hover span:nth-child(3) {
+    width: 25px;
+    transform: translateY(-4px) rotate(25deg);
+}
+*/
+
+
+
+
+/*
+.hamburger-out:hover span:nth-child(1) {
+    width: 25px;
+    transform: translate(14px, 4px) rotate(-155deg);
+}
+
+.hamburger-out:hover span:nth-child(2) {
+    width: 40px;
+}
+
+.hamburger-out:hover span:nth-child(3) {
+    width: 25px;
+    transform: translate(14px, -4px) rotate(155deg);
+}
+*/
+
+.nav-menu {
+    grid-template-rows: repeat(7, 1fr);
+    margin-top: 50px;
+}
+
+.menu-item {
+    height: 57px;
+    display: flex;
+    color: #fbfcfd;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: auto 20px;
+    border-radius: 10px;
+    align-items: center;
+}
+
+.menu-item p {
+    margin: 0;
+}
+
+.menu-item-NX {
+    margin: auto;
+}
+
+.menu-item:hover {
+    background-color: rgba(87, 87, 87, 0.13);
+}
+
+.menu-item i {
+    font-size: 30px;
+    padding: 0 20px;
+}
+
+.nav-footer {
+    width: 100%;
+    height: 87px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.nav-footer-user-name {
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+}
+
+.logout-icon {
+    font-size: 30px;
+    border-radius: 50%;
+    padding: 20px;
+}
+
+.logout-icon:hover {
+    background-color: rgba(87, 87, 87, 0.13);
+}
+
+

@@ -1,0 +1,74 @@
+.body-page{
+    padding-top: 50px;
+    padding-bottom: 50px;
+    position: relative;
+}
+.background-image-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://images7.alphacoders.com/101/1011450.jpg");
+    background-size: cover;
+    background-position: center;
+    filter: blur(5px);
+    z-index: -1; /* Place the background image behind other content */
+}
+
+.card {
+    border: #6cc305 solid 1px;
+    max-width: 500px;
+    text-align: center;
+    margin: auto;
+}
+
+.card h1 {
+    font-family: "Lucida Handwriting", cursive;
+    font-weight: bold;
+}
+
+.submitButton {
+    background-color: #6cc305;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+}
+
+.submitButton:hover {
+    background-color: #ffffff;
+    color: #212529;
+    border: #6cc305 2px solid;
+}
+
+.registration-g-f {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: center;
+}
+.registration-g-f i {
+    font-size: 50px;
+    color: #f1f1f1;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.bxl-facebook-circle{
+    background-color: #0f90f1;
+    border: 10px solid #0f90f1;
+}
+.bxl-google{
+    background-color: #e04b3c;
+    border: 10px solid #e04b3c;
+}
+
+
+@media (max-width: 900px) {
+    .card {
+        width: auto;
+    }
+}

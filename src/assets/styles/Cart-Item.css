@@ -1,0 +1,120 @@
+.item {
+    background-color: #333230;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    min-height: 200px;
+    color: #efefef;
+    position: relative;
+    overflow: hidden;
+}
+
+.image {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    max-height: 300px;
+    min-height: 150px;
+    min-width: 200px;
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+.item-data{
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-grow: 1;
+    min-height: 200px;
+}
+
+.item-info {
+    padding: 10px;
+    max-width: 300px;
+    min-width: 150px;
+}
+
+.item-price {
+    font-family: "Lucida Handwriting", cursive;
+}
+
+.list-ingredients {
+    padding: 10px;
+    width: max-content;
+}
+
+.ingredient {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 200px;
+    overflow: auto;
+}
+
+.ingredient::-webkit-scrollbar {
+    width: 5px;
+}
+
+.ingredient::-webkit-scrollbar-track {
+    background-color: #222222;
+}
+
+.ingredient::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.ingredient::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding: 10px;
+    flex-grow: 1;
+}
+
+.all-ingredients{
+    position: absolute;
+    background-color: rgba(30, 29, 27, 0.84);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    right: 0;
+    top: 0;
+    overflow: auto;
+}
+.all-ingredients::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+.all-ingredients::-webkit-scrollbar-track {
+    background-color: #222222;
+}
+
+.all-ingredients::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.all-ingredients::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+@media (min-width: 900px) {
+    .image {
+        max-width: 350px;
+    }
+    .item{
+        flex-wrap: nowrap;
+    }
+}

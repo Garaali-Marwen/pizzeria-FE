@@ -1,0 +1,46 @@
+.label-file {
+    cursor: pointer;
+    color: #575757;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    height: 150px;
+    width: 150px;
+    border-radius: 10%;
+    justify-content: center;
+}
+.label-file:hover {
+    color: rgba(87, 87, 87, 0.34);
+}
+.input-file {
+    display: none;
+    height: 100%;
+    width: 100%;
+}
+.add-image{
+    text-align: center;
+    position: relative;
+    height: 150px;
+    width: 150px;
+}
+
+.add-image img{
+    position: absolute;
+    max-width: 150px;
+    max-height: 150px;
+}
+
+
+.edit-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    display: none;
+}
+
+.label-file:hover .edit-icon {
+    display: block;
+    color: #575757;
+}
