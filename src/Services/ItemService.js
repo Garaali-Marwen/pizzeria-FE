@@ -8,9 +8,12 @@ class ItemService {
         return axios.get(`${PIZZERIA_API_BASE_URL}/all/${pageNumber}/${pageSize}`)
     }
 
+    findAllItems(){
+        return axios.get(`${PIZZERIA_API_BASE_URL}/all`)
+    }
 
-    getItemsByCategory(name){
-        return axios.get(`${PIZZERIA_API_BASE_URL}/category/${name}`, { headers: {"Authorization" : `Bearer ${UserService.getToken()}`} })
+    getItemsByItemIngredientsIsNull(){
+        return axios.get(`${PIZZERIA_API_BASE_URL}/drinks`, { headers: {"Authorization" : `Bearer ${UserService.getToken()}`} })
     }
 
     addItem(formData) {

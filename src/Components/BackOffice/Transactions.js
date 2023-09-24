@@ -117,8 +117,8 @@ export function Transactions() {
                                     <TableCell align="left"><b>Client</b></TableCell>
                                 }
                                 <TableCell align="left"><b>Date</b></TableCell>
-                                <TableCell align="left"><b>Amount</b></TableCell>
-                                <TableCell align="right"><b>Order</b></TableCell>
+                                <TableCell align="left"><b>Montant</b></TableCell>
+                                <TableCell align="right"><b>Commande</b></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -170,12 +170,13 @@ export function Transactions() {
                                                     <div className="additional-info"
                                                          style={{backgroundColor: "rgba(42,42,42,0.09)"}}>
                                                         <div className="d-flex flex-column gap-2">
-                                                            <b style={{color: "#4b4b4b"}}>Order Info: </b>
+                                                            <b style={{color: "#4b4b4b"}}>Informations sur la commande: </b>
                                                             {transaction.order.orderItems.map((orderItem, index) => (
                                                                 <div key={orderItem.id}
                                                                      className="position-relative">
                                                                     <div
                                                                         className="d-flex align-items-center w-100 gap-2 position-relative">
+                                                                        <b>x {orderItem.quantity}</b>
                                                                         <Avatar
                                                                             src={orderItem.item.image ? 'data:image/png;base64,' + orderItem.item.image.imageBytes : null}/>
                                                                         <b style={{minWidth: '100px'}}>{orderItem.item.name}</b>
@@ -184,7 +185,7 @@ export function Transactions() {
                                                                                 <Divider orientation="vertical" flexItem
                                                                                          style={{borderColor: "#4b4b4b"}}/>
                                                                                 <div>
-                                                                                    <b>Additional ingredients:</b>
+                                                                                    <b>Ingrédients supplémentaires:</b>
                                                                                     <div
                                                                                         className="d-flex align-items-center w-100 gap-2">
                                                                                         {orderItem.ingredients.map(ingredient => (

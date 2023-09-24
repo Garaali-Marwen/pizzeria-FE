@@ -17,6 +17,13 @@ class CategoryService {
     getCategoryByItemId(id) {
         return axios.get(`${PIZZERIA_API_BASE_URL}/item/${id}`, {headers: {"Authorization": `Bearer ${UserService.getToken()}`}})
     }
+    getCategoryIncomeForYear(year) {
+        return axios.get(`${PIZZERIA_API_BASE_URL}/income/stats/${year}`, {headers: {"Authorization": `Bearer ${UserService.getToken()}`}})
+    }
+
+    getOrdersCountByItemAndCategory(categoryId) {
+        return axios.get(`${PIZZERIA_API_BASE_URL}/${categoryId}/order-item-count`, {headers: {"Authorization": `Bearer ${UserService.getToken()}`}})
+    }
 
     updateCategory(category) {
         return axios.put(`${PIZZERIA_API_BASE_URL}/update`,category, {headers: {"Authorization": `Bearer ${UserService.getToken()}`}})

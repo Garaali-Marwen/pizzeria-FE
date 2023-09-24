@@ -1,0 +1,95 @@
+.contnr {
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 30%;
+    min-width: 300px;
+    flex-grow: 1;
+}
+
+.contnt1 {
+    height: 70px;
+    background-color: #484848;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.contnt2 {
+    height: 70px;
+    background-color: #333230;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.icone-cntnt {
+    font-size: 40px;
+    color: white;
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+.text-Stats {
+    color: white;
+    position: absolute;
+    z-index: 9999;
+    bottom: 10px;
+    left: 80px;
+}
+
+.text-Stats b {
+    font-size: 15px;
+    color: #b7b7b7;
+}
+
+.text-Stats h5 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.bubbleStats1 {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #333230;
+    z-index: 4;
+}
+
+.bubbleStats2 {
+    position: absolute;
+    top: -40px;
+    right: 30px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #3d3d3b;
+    z-index: 2;
+}
+
+.bubbleStats11 {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #3d3d3b;
+    z-index: 4;
+}
+
+.bubbleStats22 {
+    position: absolute;
+    top: -40px;
+    right: 30px;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    background-color: #484848;
+    z-index: 2;
+}

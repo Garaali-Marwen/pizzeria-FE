@@ -53,7 +53,7 @@ export default function OrderCard({order, index, onUpdate}) {
     return (
         <div className="w-100 d-flex flex-column gap-2"
              style={{
-                 backgroundColor: order.state === 'PENDING' ? 'rgba(255,166,0,0.06)' : 'rgba(108,195,5,0.22)',
+                 backgroundColor: order.state === 'PENDING' ? 'rgba(58,58,58,0.06)' : 'rgba(108,195,5,0.22)',
                  maxWidth: "1000px"
              }}>
             <div className="d-flex align-items-center p-2 justify-content-between flex-wrap"
@@ -92,7 +92,7 @@ export default function OrderCard({order, index, onUpdate}) {
                             <Accordion.Collapse eventKey={orderItem.id}>
                                 <div className="additional-info" style={{backgroundColor: "rgba(162,162,162,0.23)"}}>
                                     <div className="d-flex flex-column gap-2">
-                                        <b style={{color: "#4b4b4b"}}>Additional ingredients: </b>
+                                        <b style={{color: "#4b4b4b"}}>Ingrédients supplémentaires: </b>
                                         <div className="d-flex align-items-center flex-wrap gap-2">
                                             {orderItemWithoutDuplicates.ingredients.map(ingredient => (
                                                 <div key={ingredient.id} className="ingredient-name">
@@ -118,16 +118,16 @@ export default function OrderCard({order, index, onUpdate}) {
 
             {order.comment.trim().length !== 0 &&
                 <div className="p-2">
-                    <b>Comment:</b>
+                    <b>Commentaire:</b>
                     <p className="m-0">{order.comment}</p>
                 </div>
             }
 
             <div className="d-flex align-items-center p-2 justify-content-between flex-wrap"
                  style={{backgroundColor: "rgba(185,185,185,0.23)"}}>
-                <b>Order {index + 1}</b>
+                <b>Commande {index + 1}</b>
                 <b className="d-flex align-items-center gap-2" style={{color: "#fb0002"}}>
-                    Price: {order.price} €
+                    Prix: {order.price} €
                     {order.orderType === 'DELIVERY' &&
                         <img height="30px" width="30px"
                              src="https://img.icons8.com/?size=512&id=rW5lfeg05LJV&format=png"/>
@@ -137,7 +137,7 @@ export default function OrderCard({order, index, onUpdate}) {
                     {order.state === 'PENDING' &&
                         <Button onClick={updateOrder} color="success" variant="contained"
                                 endIcon={<i className='bx bxs-bell-ring'></i>}>
-                            Ready
+                            Prête
                         </Button>
                     }
                 </div>

@@ -125,26 +125,40 @@ export function ItemsList({updateCartItemCount}) {
         ).catch(
             error => console.log(error)
         )
-    }, [stockUpdate])
+    }, [])
+    const onUpdateCartItemCount = () => {
+        setStockUpdate(prevState => prevState + 1)
+        updateCartItemCount()
+    }
 
     return (
 
         <div className="container mt-5">
             <Box sx={{textAlign: 'center'}}>
-                <h1 className="price text-white" style={{fontWeight: "bold"}}>Our Special Deals</h1>
+                <h1 className="price text-white" style={{fontWeight: "bold"}}>Nos Offres Spéciales</h1>
                 <img src="https://img.icons8.com/?size=512&id=csCQmEEpNLB7&format=png"
                      style={{width: '60px', height: '60px'}} alt=""/>
-                <Tabs TabIndicatorProps={{
-                    style: {
-                        backgroundColor: "#6cc305"
-                    }
-                }}
-                      centered value={value} onChange={handleChange} aria-label="basic tabs example">
-                    {categories.filter(category => category.items.length > 0).map((category, index) => (
-                        <Tab style={{color: '#fdfdfe', fontWeight: 'bold'}} key={category.id}
-                             label={category.name} {...a11yProps(index)} />
-                    ))}
-                </Tabs>
+                <div className="tab-container" style={{ maxWidth: '100%', overflowX: 'auto' }}>
+                    <Tabs
+                        TabIndicatorProps={{
+                            style: {
+                                backgroundColor: "#6cc305",
+                            }
+                        }}
+                        centered value={value} onChange={handleChange} aria-label="basic tabs example"
+                        sx={{
+                            "& .css-1wf8b0h-MuiTabs-flexContainer": {
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                            }
+                        }}
+                    >
+                        {categories.filter(category => category.items.length > 0).map((category, index) => (
+                            <Tab style={{ color: '#fdfdfe', fontWeight: 'bold' }} key={category.id}
+                                 label={category.name} {...a11yProps(index)} />
+                        ))}
+                    </Tabs>
+                </div>
 
                 {categories.filter(category => category.items.length > 0).map((category, index) => (
                     <CustomTabPanel key={category.id} value={value} index={index}>
@@ -152,7 +166,7 @@ export function ItemsList({updateCartItemCount}) {
                             <Slider {...settings} slidesToShow={Math.min(category.items.length, settings.slidesToShow)}>
                                 {category.items.map(item => (
                                     <ItemCard key={item.id} item={item}
-                                              onAddToCart={updateCartItemCount} stockUpdate={stockUpdate}/>
+                                              onAddToCart={onUpdateCartItemCount} stockUpdate={stockUpdate}/>
                                 ))}
                             </Slider>
                         </div>

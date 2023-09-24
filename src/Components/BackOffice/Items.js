@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {Modal, ModalBody, ModalHeader} from "reactstrap";
 import {ItemCard} from "../FrontOffice/Item-Card";
 import {ItemForm} from "./Item-Form";
@@ -22,9 +21,6 @@ import SnackbarMessage from "../SnackbarMessage";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Tooltip from '@mui/material/Tooltip';
 import {Element, scroller} from "react-scroll";
-import {Stomp} from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-import OrderService from "../../Services/OrderService";
 
 export function Items() {
 
@@ -137,7 +133,7 @@ export function Items() {
             <div className="w-100 p-5">
                 <div>
                     <div className="d-flex align-items-center justify-content-between">
-                        <h1 className="card-title text-start">Items</h1>
+                        <h1 className="card-title text-start">Articles</h1>
                         <Tooltip title="Add new item">
                             <IconButton onClick={handleAddingItem} aria-label="add">
                                 <AddCircleOutlineIcon style={{color: '#000000'}}/>
@@ -151,9 +147,9 @@ export function Items() {
                         <TableHead>
                             <TableRow>
                                 <TableCell></TableCell>
-                                <TableCell align="left"><b>Name</b></TableCell>
-                                <TableCell align="left"><b>Category</b></TableCell>
-                                <TableCell align="left"><b>Price&nbsp;(TND)</b></TableCell>
+                                <TableCell align="left"><b>Nom</b></TableCell>
+                                <TableCell align="left"><b>Categorie</b></TableCell>
+                                <TableCell align="left"><b>Prix&nbsp;(€)</b></TableCell>
                                 <TableCell align="left"></TableCell>
                             </TableRow>
                         </TableHead>

@@ -48,13 +48,15 @@ export function SignIn({updateIsLoggedIn}) {
                         }
                         break;
                     case 'EMPLOYEE':
+                        navigate('/backOffice/orders');
+                        updateIsLoggedIn();
+                        break;
                     case 'ADMIN':
                         navigate('/backOffice/dashboard');
                         updateIsLoggedIn();
                         break;
                     default:
-                        navigate('/');
-                        updateIsLoggedIn();
+                        break;
                 }
                 setUser({
                     email: '',
@@ -81,25 +83,25 @@ export function SignIn({updateIsLoggedIn}) {
 
             <div className="card mt-5 pt-4 d-flex">
                 <form onSubmit={handleSubmit}>
-                    <h1>LogIn</h1>
+                    <h1>Se connecter</h1>
                     <div className="card-body">
                         <TextField focused value={user.email} name="email" onChange={handleFormChange} type="email"
                                    fullWidth
-                                   label="Email" variant="outlined"/>
+                                   label="E-mail" variant="outlined"/>
                         <TextField focused value={user.password} onChange={handleFormChange} name="password"
                                    type="password"
                                    className="mt-4"
-                                   fullWidth label="Password"
+                                   fullWidth label="Mot de passe"
                                    variant="outlined"/>
                     </div>
                     <div className="mb-4 p-4">
-                        <button className="submitButton w-100" type="submit">LOGIN</button>
+                        <button className="submitButton w-100" type="submit">Se connecter</button>
                     </div>
                 </form>
                 <div className="d-flex align-items-center justify-content-around">
-                    <hr className="w-50"/>
-                    <h1 className="fs-3 w-100">Or login using</h1>
-                    <hr className="w-50"/>
+                    <hr className="w-100"/>
+                    <h1 className="fs-3">Ou</h1>
+                    <hr className="w-100"/>
                 </div>
                 <div className="registration-g-f mb-5">
                     <i className='bx bxl-facebook-circle'></i>

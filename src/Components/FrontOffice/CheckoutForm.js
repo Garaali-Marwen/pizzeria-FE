@@ -85,7 +85,7 @@ export default function CheckoutForm({price}) {
             <PaymentElement id="payment-element" options={paymentElementOptions}/>
             <button disabled={isLoading || !stripe || !elements} id="submit">
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now " + price +" €"}
+          {isLoading ? <div className="spinner" id="spinner"></div> : "Payez " + price +" €"}
         </span>
             </button>
             {/* Show any error or success messages */}

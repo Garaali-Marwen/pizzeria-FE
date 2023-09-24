@@ -74,7 +74,12 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
             ...prevItem,
             sizes: sizesForm
         }));
-    }, [sizesForm])
+        if (!sizes)
+            setItem(prevItem => ({
+                ...prevItem,
+                sizes: []
+            }));
+    }, [sizesForm, sizes])
 
 
     const onImageChange = (event) => {
@@ -172,6 +177,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
     };
 
     const handleAddAdditionalIngredients = (event) => {
+        console.log(event.target.value)
         const selectedIngredient = {
             ingredient: {
                 id: event.target.value.id,
@@ -303,10 +309,6 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
 
     const handleAddingSizes = () => {
         setSizes(prev => !prev)
-        setItem(prevItem => ({
-            ...prevItem,
-            sizes: []
-        }));
         setSizesForm((prev) => [{
             id: parseInt(Date.now() * Math.random()).toString(),
             size: '',
@@ -325,9 +327,9 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                 <div>
                     <h1 className="card-title text-start">
                         {!itemUpdate ?
-                            'Add new item'
+                            'Ajout d\'article'
                             :
-                            'Edit item'}
+                            'Modification d\'article'}
                     </h1>
                     <div className="border-top mb-5 mt-2"></div>
                 </div>
@@ -335,12 +337,12 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                     <div className="row" style={{display: "flex", flexWrap: "wrap", gap: '10px', width: '100%'}}>
                         <div className="card p-4 m-0 flex-grow-1 h-auto d-flex col-md-4 gap-4">
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Categorie</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={item.category?.name || ""}
-                                    label="Category"
+                                    label="Categorie"
                                     name="category"
                                     onChange={handleFormChange}
                                 >
@@ -355,7 +357,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                 required
                                 name="name"
                                 id="standard-required"
-                                label="Name"
+                                label="Nom"
                                 variant="standard"
                                 fullWidth
                             />
@@ -378,7 +380,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                 type="number"
                                 fullWidth
                                 id="standard-required"
-                                label="price"
+                                label="Prix"
                                 variant="standard"
                                 className="mt-2"
                             />
@@ -387,7 +389,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                     htmlFor="file1"
                                     className="label-file"
                                     style={{border: !itemImage ? '#575757 dashed 1px' : 'none'}}>
-                                    {!itemImage && 'Choose item image'}
+                                    {!itemImage && 'Choisissez l\'image de l\'article'}
                                     <img alt="" src={itemImage}/>
                                     {itemImage && (<span className="edit-icon"><i className="bx bxs-edit"></i></span>)}
                                 </label>
@@ -401,7 +403,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                             style={{height: 'max-content', width: "max-content"}}
                                             className="mt-2" variant="contained"
                                             endIcon={<i className="bx bx-plus-circle"></i>}>
-                                        Add sizes
+                                        Ajouter des tailles
                                     </Button>
                                 }
                                 {!ingredientForm &&
@@ -409,7 +411,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                             style={{height: 'max-content', width: "max-content"}}
                                             className="mt-2" variant="contained"
                                             endIcon={<i className="bx bx-plus-circle"></i>}>
-                                        Add ingredients
+                                        Ajouter des ingrédients
                                     </Button>
                                 }
                             </div>
@@ -417,7 +419,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                         {sizes &&
                             <div className="card p-4 m-0 flex-grow-1  col-md-4  h-auto d-flex col gap-4">
                                 <div className="d-flex align-items-center justify-content-between">
-                                    <h5 className="text-start">Sizes: </h5>
+                                    <h5 className="text-start">Tailles: </h5>
                                     {!itemUpdate &&
                                         <i onClick={handleAddingSizes} style={{
                                             fontSize: '20px',
@@ -443,7 +445,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                                 name="size"
                                                 fullWidth
                                                 id="standard-required"
-                                                label="Size"
+                                                label="Taille"
                                                 variant="standard"
                                                 value={size.size}
                                                 onChange={(e) => handleSizeChange(size.id, e)}/>
@@ -453,7 +455,7 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                                 type="number"
                                                 fullWidth
                                                 id="standard-required"
-                                                label="Price"
+                                                label="Prix"
                                                 variant="standard"
                                                 value={size.price}
                                                 onChange={(e) => handlePriceChange(size.id, e)}/>
@@ -467,10 +469,10 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                             </div>
                         }
                         {ingredientForm &&
-                            <div className="card p-4 m-0 flex-grow-1  col-md-4 h-auto text-start">
+                            <div className="card p-4 m-0 flex-grow-1  col-md-8 h-auto text-start">
                                 <div>
                                     <div className="d-flex align-items-center justify-content-between">
-                                        <h5 className="text-start">Ingredients: </h5>
+                                        <h5 className="text-start">Ingrédients: </h5>
                                         {!itemUpdate &&
                                             <i onClick={handleAddingIngredients} style={{
                                                 fontSize: '20px',
@@ -482,12 +484,12 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                     </div>
                                     <div className="row d-flex flex-wrap col-md-8 w-100">
                                         <FormControl sx={{m: 1, minWidth: 120}}>
-                                            <InputLabel id="demo-simple-select-helper-label">ingredients</InputLabel>
+                                            <InputLabel id="demo-simple-select-helper-label">Ingrédients</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-helper-label"
                                                 id="demo-simple-select-helper"
                                                 value=""
-                                                label="ingredients"
+                                                label="Ingrédients"
                                                 onChange={handleAddIngredient}
                                             >
                                                 {allIngredients.map((ingredient) => (
@@ -534,16 +536,16 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                 <div>
                                     <hr/>
                                     <div className="d-flex align-items-center justify-content-between">
-                                        <h5 className="text-start">Additional ingredients: </h5>
+                                        <h5 className="text-start">Ingrédients supplémentaires : </h5>
                                     </div>
                                     <div className="row d-flex flex-wrap col-md-8 w-100">
                                         <FormControl sx={{m: 1, minWidth: 120}}>
-                                            <InputLabel id="demo-simple-select-helper-label">ingredients</InputLabel>
+                                            <InputLabel id="demo-simple-select-helper-label">Ingrédients</InputLabel>
                                             <Select
                                                 labelId="demo-simple-select-helper-label"
                                                 id="demo-simple-select-helper"
                                                 value=""
-                                                label="ingredients"
+                                                label="Ingrédients"
                                                 onChange={handleAddAdditionalIngredients}
                                             >
                                                 {allIngredients.map((ingredient) => (
@@ -562,37 +564,58 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                                 key={ingredient.ingredient.id}
                                                 className="m-1 w-auto"
                                                 label={
-                                                    <>
+                                                    <div className="d-flex align-items-center">
                                                         {ingredient.ingredient.name}
-                                                        <Input
-                                                            type="number"
-                                                            required
-                                                            value={ingredient.price}
-                                                            onChange={(event) => handlePriceAdditionalIngredientsChange(event, ingredient.ingredient.id)}
-                                                            id="standard-adornment-weight"
-                                                            endAdornment={<InputAdornment
-                                                                position="end">TND</InputAdornment>}
-                                                            aria-describedby="standard-weight-helper-text"
-                                                            inputProps={{
-                                                                'aria-label': 'quantity',
-                                                            }}
-                                                            style={{width: '100px', marginLeft: '5px'}}
-                                                        />
-                                                        <Input
-                                                            type="number"
-                                                            required
-                                                            value={ingredient.quantity}
-                                                            onChange={(event) => handleQuantityAdditionalIngredientChange(event, ingredient.ingredient.id)}
-                                                            id="standard-adornment-weight"
-                                                            endAdornment={<InputAdornment
-                                                                position="end">{ingredient.ingredient.unit}</InputAdornment>}
-                                                            aria-describedby="standard-weight-helper-text"
-                                                            inputProps={{
-                                                                'aria-label': 'quantity',
-                                                            }}
-                                                            style={{width: '100px', marginLeft: '5px'}}
-                                                        />
-                                                    </>
+                                                        <div className="input-group w-auto">
+                                                            <input type="number"
+                                                                   style={{
+                                                                       height: "25px",
+                                                                       backgroundColor: "transparent",
+                                                                       border: "none",
+                                                                       borderBottom: "2px solid #ccc",
+                                                                       borderRadius: "0",
+                                                                       outline: "none",
+                                                                       boxShadow: "none",
+                                                                   }}
+                                                                   value={ingredient.price}
+                                                                   onChange={(event) => handlePriceAdditionalIngredientsChange(event, ingredient.ingredient.id)}
+                                                                   className="form-control"
+                                                                   aria-label="Recipient's username"
+                                                                   aria-describedby="basic-addon2"/>
+                                                            <div className="input-group-append">
+                                                                <span className="input-group-text"
+                                                                      style={{
+                                                                          height: "25px",
+                                                                          backgroundColor: "transparent",
+                                                                          border: "none"
+                                                                      }}>€</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="input-group w-auto">
+                                                            <input type="number"
+                                                                   style={{
+                                                                       height: "25px",
+                                                                       backgroundColor: "transparent",
+                                                                       border: "none",
+                                                                       borderBottom: "2px solid #ccc",
+                                                                       borderRadius: "0",
+                                                                       outline: "none",
+                                                                       boxShadow: "none"
+                                                                   }} value={ingredient.quantity}
+                                                                   onChange={(event) => handleQuantityAdditionalIngredientChange(event, ingredient.ingredient.id)}
+                                                                   className="form-control"
+                                                                   aria-label="Recipient's username"
+                                                                   aria-describedby="basic-addon2"/>
+                                                            <div className="input-group-append">
+                                                                <span className="input-group-text"
+                                                                      style={{
+                                                                          height: "25px",
+                                                                          backgroundColor: "transparent",
+                                                                          border: "none"
+                                                                      }}>{ingredient.ingredient.unit}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 }
                                                 onDelete={() => handleDeleteAdditionalIngredients(ingredient.ingredient.id)}
                                                 avatar={<Avatar
@@ -613,9 +636,9 @@ export function ItemForm({itemUpdate, onUpdate, onAdd}) {
                                     <i className='bx bxs-edit'></i>
                             }>
                         {!itemUpdate ?
-                            'Add'
+                            'Ajouter'
                             :
-                            'Edit'}
+                            'Modifier'}
                     </Button>
                 </form>
             </div>

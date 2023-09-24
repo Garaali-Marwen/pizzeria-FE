@@ -1,0 +1,81 @@
+.cardChart {
+    background-color: #333230;
+    width: 33%;
+    min-width: 300px;
+    height: 150px;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.bubble1 {
+    position: absolute;
+    top: -10px;
+    right: -60px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: #3d3d3b;
+    z-index: 4;
+}
+
+.icone {
+    position: absolute;
+    z-index: 999;
+    top: 10px;
+    left: 10px;
+    color: white;
+    font-size: 50px;
+}
+
+.bubble2 {
+    position: absolute;
+    top: -70px;
+    right: 10px;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: #484848;
+    z-index: 2;
+}
+
+.chart {
+    position: absolute;
+    bottom: -29px;
+    right: 0;
+    z-index: 9;
+}
+
+.text-income {
+    color: white;
+    position: absolute;
+    z-index: 9999;
+    bottom: 20px;
+    left: 15px;
+}
+
+.text-income b {
+    font-size: 15px;
+    color: #b7b7b7;
+}
+.text-income h5 {
+    font-weight: bold;
+    margin: 0;
+}
+
+.buttons-date{
+    position: absolute;
+    z-index: 9999;
+    right: 10px;
+    top: 10px;
+}
+
+.buttons-date button{
+    background-color: transparent;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    padding: 2px 10px ;
+}

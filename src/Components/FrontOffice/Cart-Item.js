@@ -160,7 +160,7 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
     return (
         <div className="item">
             <div className="availability" style={{display: !availability ? 'block' : "none"}}>
-                <h5>Unavailable</h5>
+                <h5>Indisponible</h5>
             </div>
             <i onClick={handleClickOpen} style={{
                 position: 'absolute',
@@ -176,13 +176,13 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                     <h5>{order.item.name}</h5>
                     <p>{order.item.description}</p>
                     {order.size &&
-                        <p><b>Size : </b>{order.size}</p>
+                        <p><b>Taille : </b>{order.size}</p>
                     }
                 </div>
                 <div className="list-ingredients">
                     {order.ingredients.length > 0 &&
                         <>
-                            <h5>Additional ingredients :</h5>
+                            <h5>Ingrédients supplémentaires :</h5>
                             <div className="ingredient">
                                 {order.ingredients.map(ingredient => (
 
@@ -194,7 +194,7 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                                         <HtmlTooltip
                                             title={
                                                 <React.Fragment>
-                                                    <b>Unavailable quantity !</b>
+                                                    <b>Quantité indisponible !</b>
                                                 </React.Fragment>
                                             }
                                         >
@@ -220,7 +220,7 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                     {(order.item.itemIngredients.some((item) => item.type === 'SECONDARY')) &&
                         <div className="additional-ingredients mb-2 mt-0">
                             <button onClick={handleAddingAdditionalIngredients}>
-                                Add ingredients
+                                Ajouter des ingrédients
                                 <i className='bx bx-plus'></i>
                             </button>
                         </div>
@@ -229,7 +229,7 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                     {order.size &&
                         <div className="additional-ingredients mb-2 mt-0">
                             <button onClick={handleChangingSize}>
-                                Change size
+                                Changer la taille
                                 <i className='bx bxs-edit'></i>
                             </button>
                         </div>
@@ -240,13 +240,13 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                 <div className="right-content">
                     <div className="d-flex align-items-center gap-3">
                         <div className="quantity-button m-0">
-                            <b style={{marginRight: '10px'}}>Quantity : </b>
+                            <b style={{marginRight: '10px'}}>Quantité : </b>
                             <i className='bx bx-minus' onClick={() => handleQuantity('-')}></i>
                             <input readOnly onChange={(e) => handleQuantityChange(e)} type="number"
                                    value={quantity}/>
                             <i className='bx bx-plus' onClick={() => handleQuantity('+')}></i>
                         </div>
-                        <p className="item-price m-0">Price : <b
+                        <p className="item-price m-0">Prix : <b
                             style={{color: '#fd0001', fontSize: '20px'}}>{order.price} €</b>
                         </p>
                     </div>
@@ -354,10 +354,10 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                 aria-describedby="alert-dialog-slide-description"
             >
                 <DialogTitle
-                    style={{backgroundColor: '#333230', color: '#f1f1f1'}}>{"Remove from cart"}</DialogTitle>
+                    style={{backgroundColor: '#333230', color: '#f1f1f1'}}>{"Retirer du panier"}</DialogTitle>
                 <DialogContent style={{backgroundColor: '#333230'}}>
                     <DialogContentText id="alert-dialog-slide-description" style={{color: '#f1f1f1'}}>
-                        Are you sure you want to remove this item from the cart?
+                        Êtes-vous sûr de vouloir supprimer cet article du panier?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions style={{
@@ -368,11 +368,11 @@ export function CartItem({orderItem, onDelete, onUpdate, stockUpdate}) {
                 }}>
                     <Button style={{border: '1px solid #6cc305', color: '#f1f1f1'}} onClick={handleClose}>
                         <i style={{fontSize: '20px', marginRight: '10px'}} className='bx bx-heart'></i>
-                        cancel
+                        Annuler
                     </Button>
                     <Button style={{backgroundColor: '#6cc305', color: '#f1f1f1'}} onClick={handleDelete}>
                         <i style={{fontSize: '20px', marginRight: '10px'}} className='bx bxs-trash-alt'></i>
-                        Remove
+                        Retirer
                     </Button>
                 </DialogActions>
             </Dialog>

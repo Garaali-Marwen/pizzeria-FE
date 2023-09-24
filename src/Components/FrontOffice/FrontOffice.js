@@ -9,6 +9,10 @@ import {Cart} from "./Cart";
 import OrderItemService from "../../Services/OrderItemService";
 import UserService from "../../Services/UserService";
 import {PaymentSuccess} from "./PaymentSuccess";
+import {OffersList} from "./Offers-list";
+import {NotFound} from "../BackOffice/404NotFound";
+import {Contact} from "./Contact";
+import {Footer} from "./footer";
 
 export function FrontOffice() {
 
@@ -32,6 +36,8 @@ export function FrontOffice() {
         } else if (UserService.getCart().length >= 0)
             setCartItemCount(UserService.getCart().length)
     };
+    const userRole = UserService.getRole();
+    const loggedIn = UserService.isLoggedIn();
 
     return (
         <>
@@ -39,12 +45,25 @@ export function FrontOffice() {
                     updateIsLoggedIn={updateIsLoggedIn} isLoggedIn={isLoggedIn}/>
             <Routes>
                 <Route path="/" element={<Home updateCartItemCount={updateCartItemCount}/>}/>
-                <Route path="/menu" element={<Menu/>}/>
-                <Route path="/signIn" element={<SignIn updateIsLoggedIn={updateIsLoggedIn}/>}/>
-                <Route path="/signUp" element={<SignUp/>}/>
-                <Route path="/cart" element={<Cart updateCartItemCount={updateCartItemCount}/>}/>
-                <Route path="/payment/success" element={<PaymentSuccess/>}/>
+                <Route path="/menu" element={<Menu updateCartItemCount={updateCartItemCount}/>}/>
+                {!loggedIn &&
+                    <>
+                        <Route path="/signIn" element={<SignIn updateIsLoggedIn={updateIsLoggedIn}/>}/>
+                        <Route path="/signUp" element={<SignUp/>}/>
+                    </>
+                }
+                {userRole === "CLIENT" &&
+                    <>
+                        <Route path="/cart" element={<Cart updateCartItemCount={updateCartItemCount}/>}/>
+                        <Route path="/payment/success" element={<PaymentSuccess/>}/>
+                    </>
+                }
+                <Route path="/contact" element={<Contact/>}/>
+                <Route path="/offers" element={<OffersList/>}/>
+                <Route path="*" element={<NotFound/>}/>
             </Routes>
+
+            <Footer/>
         </>
     );
 }

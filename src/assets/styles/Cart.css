@@ -7,7 +7,7 @@
 }
 
 textarea:focus {
-    border: "2px solid #211e1e";
+    border: 2px solid #211e1e;
     outline: none; /* Remove the default focus outline */
 }
 

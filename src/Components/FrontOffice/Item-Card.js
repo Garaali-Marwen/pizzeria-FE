@@ -83,8 +83,18 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
         setAdditionalIngredient((prevIngredients) => {
             const ingredientExists = prevIngredients.some((prevIngredient) => prevIngredient.id === ingredient.id);
             if (ingredientExists) {
+                verifyItemAvailability({
+                    item: item,
+                    ingredients: prevIngredients.filter((prevIngredient) => prevIngredient.id !== ingredient.id),
+                    quantity: quantity
+                })
                 return prevIngredients.filter((prevIngredient) => prevIngredient.id !== ingredient.id);
             } else {
+                verifyItemAvailability({
+                    item: item,
+                    ingredients: [...prevIngredients, ingredient],
+                    quantity: quantity
+                })
                 return [...prevIngredients, ingredient];
             }
         });
@@ -140,7 +150,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
             ingredients: additionalIngredients,
             quantity: quantity
         })
-    }, [quantity, stockUpdate, additionalIngredients]);
+    }, [quantity, stockUpdate]);
 
 
     const verifyItemAvailability = async (orderItem) => {
@@ -164,7 +174,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
                 setAvailability(false);
                 setQuantity(1)
                 if (verifyResponse.data.unavailableIngredients.length > 0) {
-                   setAdditionalIngredient(prevIngredients => {
+                    setAdditionalIngredient(prevIngredients => {
                         return prevIngredients.filter(ingredient => !verifyResponse.data.unavailableIngredients.includes(ingredient.id));
                     });
                 }
@@ -248,7 +258,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
         <div className="item-card">
             <div className="body">
                 <div className="availability" style={{display: !availability ? 'block' : "none"}}>
-                    <h5>Unavailable</h5>
+                    <h5>Indisponible</h5>
                 </div>
                 {showAdditionalIngredients &&
                     <div className="ingredients">
@@ -282,7 +292,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
                                         <HtmlTooltip
                                             title={
                                                 <React.Fragment>
-                                                    <b>Unavailable quantity !</b>
+                                                    <b>Quantité indisponible !</b>
                                                 </React.Fragment>
                                             }
                                         >
@@ -304,7 +314,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
                         </div>
 
                         <button onClick={handleShowingAdditionalIngredients}>
-                            Additional ingredients
+                            Ingrédients supplémentaires
                             <i className='bx bx-minus'></i>
                         </button>
                     </div>
@@ -333,7 +343,7 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
                             <div className="additional-ingredients">
                                 <button style={{cursor: availability ? "pointer" : "not-allowed"}}
                                         onClick={handleShowingAdditionalIngredients}>
-                                    Additional ingredients
+                                    Ingrédients supplémentaires
                                     <i className='bx bx-plus'></i>
                                 </button>
                             </div>
@@ -353,13 +363,15 @@ export function ItemCard({item, onAddToCart, stockUpdate}) {
                         <i className='bx bx-plus'></i>
                     </IconButton>
                 </div>
-                <p className="price">Price : <b style={{color: '#fd0001', fontSize: '20px'}}>{totalPrice} €</b>
+                <p className="price">Prix : <b style={{color: '#fd0001', fontSize: '20px'}}>{totalPrice} €</b>
                 </p>
-                <button onClick={addItemToCart} className="add-to-cart"
-                        style={{cursor: availability ? "pointer" : "not-allowed"}}>
-                    Add to cart
-                    <i className='bx bxs-cart-add'></i>
-                </button>
+                {(UserService.getRole() !== "EMPLOYEE" && UserService.getRole() !== "ADMIN") &&
+                    <button onClick={addItemToCart} className="add-to-cart"
+                            style={{cursor: availability ? "pointer" : "not-allowed"}}>
+                        Ajouter au panier
+                        <i className='bx bxs-cart-add'></i>
+                    </button>
+                }
             </div>
 
 

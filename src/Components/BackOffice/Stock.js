@@ -12,7 +12,6 @@ import {
     TableRow
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import SnackbarMessage from "../SnackbarMessage";
 import {useEffect, useState} from "react";
@@ -123,8 +122,8 @@ export function Stock() {
                         <TableHead>
                             <TableRow>
                                 <TableCell></TableCell>
-                                <TableCell align="left"><b>Name</b></TableCell>
-                                <TableCell align="left"><b>Quantity</b></TableCell>
+                                <TableCell align="left"><b>Nom</b></TableCell>
+                                <TableCell align="left"><b>Quantité</b></TableCell>
                                 <TableCell align="left"></TableCell>
                             </TableRow>
                         </TableHead>

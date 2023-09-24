@@ -1,6 +1,14 @@
 .user-name {
     margin-right: 10px;
 }
+.underline {
+    display: inline-block;
+    height: 2px;
+    width: 100%;
+    background-color: #6cc305;
+    margin-top: 2px;
+    margin-bottom: 0;
+}
 
 .logo-container {
     position: absolute;
@@ -180,6 +188,13 @@
 
     .button-container{
         display: none;
+    }
+
+}
+
+@media (max-width: 800px) {
+    .button-container{
+        font-size: 10px;
     }
 
 }

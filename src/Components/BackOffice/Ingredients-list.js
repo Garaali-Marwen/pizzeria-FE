@@ -102,7 +102,7 @@ export function IngredientsList() {
             <div className="w-100 p-5">
                 <div>
                     <div className="d-flex align-items-center justify-content-between">
-                        <h1 className="card-title text-start">Ingredients</h1>
+                        <h1 className="card-title text-start">Ingrédients</h1>
                         <Tooltip title="Add new item">
                             <IconButton onClick={handleAddingIngredient} aria-label="add">
                                 <AddCircleOutlineIcon style={{color: '#000000'}}/>
@@ -116,8 +116,8 @@ export function IngredientsList() {
                         <TableHead>
                             <TableRow>
                                 <TableCell></TableCell>
-                                <TableCell align="left"><b>Name</b></TableCell>
-                                <TableCell align="left"><b>Unit</b></TableCell>
+                                <TableCell align="left"><b>Nom</b></TableCell>
+                                <TableCell align="left"><b>Unité</b></TableCell>
                                 <TableCell align="left"></TableCell>
                             </TableRow>
                         </TableHead>

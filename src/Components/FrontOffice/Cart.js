@@ -9,11 +9,12 @@ import {Stomp} from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
 import Checkout from "./Checkout";
-import {FormControlLabel, IconButton, Switch} from "@mui/material";
+import {FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, Switch} from "@mui/material";
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {FormGroup} from "reactstrap";
 import {styled} from "@mui/material/styles";
 import {MapStreet} from "./MapStreet";
+import {Link} from "react-router-dom";
 
 
 const MaterialUISwitch = styled(Switch)(({theme}) => ({
@@ -113,10 +114,12 @@ export function Cart({updateCartItemCount}) {
     const [unavailability, setUnavailability] = useState(false)
     const [payment, setPayment] = useState(false);
     const [stockUpdate, setStockUpdate] = useState(0)
-    const [delivery, setDelivery] = useState(false)
+    const [orderType, setOrderType] = useState("DINE_IN")
     const [comment, setComment] = useState("")
     const [sms, setSms] = useState(false)
     const [address, setAddress] = useState({latitude: "", longitude: ""})
+    const [invalidAddress, setInvalidAddress] = useState(false)
+
 
     useEffect(() => {
         let stompClient = Stomp.over(() => new SockJS('http://localhost:8080/ws'));
@@ -145,16 +148,19 @@ export function Cart({updateCartItemCount}) {
     }, []);
 
     const handleAddressUpdate = (address) => {
+        setInvalidAddress(false)
         setAddress(address)
     }
     const handleAddingNewOrder = () => {
         if (!unavailability) {
             if (UserService.isLoggedIn()) {
-                if (delivery) {
+                if (orderType === "DELIVERY") {
                     if (address.latitude.length !== 0) {
                         setPayment(!payment)
-                    } else
+                    } else {
+                        setInvalidAddress(true)
                         return;
+                    }
                 } else
                     setPayment(!payment)
             } else {
@@ -316,9 +322,9 @@ export function Cart({updateCartItemCount}) {
                                     client: {
                                         id: UserService.getUserId(),
                                     },
-                                    price: orderItems.reduce((accumulator, orderItem) => accumulator + orderItem.price, delivery ? 5 : 0),
+                                    price: orderItems.reduce((accumulator, orderItem) => accumulator + orderItem.price, orderType === "DELIVERY" ? 5 : 0),
                                     orderItems: orderItems,
-                                    orderType: delivery ? 'DELIVERY' : 'TAKEAWAY',
+                                    orderType: orderType,
                                     comment: comment,
                                     smsNotification: sms,
                                     address: address
@@ -326,7 +332,7 @@ export function Cart({updateCartItemCount}) {
                             </>
                             :
                             <>
-                                <h3>Summary</h3>
+                                <h3>Résumé</h3>
                                 <hr/>
                                 <div className="summary-items">
                                     {orderItems.map(orderItem => (
@@ -341,27 +347,54 @@ export function Cart({updateCartItemCount}) {
                                     ))}
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div>
-                                            <FormGroup>
-                                                <b>- Delivery </b>
-                                                <FormControlLabel
-                                                    control={<MaterialUISwitch2 sx={{ml: 1}}
-                                                                                checked={delivery}
-                                                                                onChange={() => setDelivery(!delivery)}/>}
-                                                    label=""
-                                                />
-                                            </FormGroup>
+                                            <FormControl>
+                                                <FormLabel id="demo-radio-buttons-group-label">
+                                                    <b style={{color: "#ededed"}}>- Type de commande </b>
+                                                </FormLabel>
+                                                <RadioGroup
+                                                    aria-labelledby="demo-radio-buttons-group-label"
+                                                    defaultValue="female"
+                                                    name="radio-buttons-group"
+                                                    value={orderType}
+                                                    onChange={(e) => setOrderType(e.target.value)}
+                                                >
+                                                 <div className="d-flex align-items-center justify-content-between">
+                                                     <div style={{display: "flex", alignItems: "center"}}>
+                                                         <FormControlLabel value="DINE_IN" control={<Radio style={{color: "#6cc305"}} />} label="Sur place" />
+                                                         <FormControlLabel value="TAKEAWAY" control={<Radio style={{color: "#6cc305"}} />} label="A emporter" />
+                                                         <FormControlLabel value="DELIVERY" control={<Radio style={{color: "#6cc305"}} />} label="Livraison (5 €)" />
+                                                     </div>
+                                                 </div>
+                                                  </RadioGroup>
+                                            </FormControl>
                                         </div>
-                                        <p style={{color: delivery ? "#6cc205" : "#ededed", margin: 0}}>5 €</p>
                                     </div>
 
-                                    {delivery &&
-                                        <MapStreet onUpdateAddress={handleAddressUpdate}/>
+                                    {orderType === "DELIVERY" &&
+                                        <div style={{
+                                            position: "relative",
+                                            border: invalidAddress ? "2px solid #fd0001" : "1px solid transparent",
+                                            height: "200px",
+                                        }}>
+                                            <MapStreet onUpdateAddress={handleAddressUpdate}/>
+                                            <div style={{
+                                                color: "#fd0001",
+                                                backgroundColor: "rgba(82,82,82,0.26)",
+                                                width: "100%",
+                                                textAlign: "center",
+                                                position: "absolute",
+                                                top: 0,
+                                                display: invalidAddress ? "block" : "none"
+                                            }}>
+                                                <b>Vous devez choisir une adresse!</b>
+                                            </div>
+                                        </div>
                                     }
 
                                     <div className="d-flex align-items-center justify-content-between">
                                         <div>
                                             <FormGroup>
-                                                <b>- SMS notification </b>
+                                                <b>- Notification par SMS </b>
                                                 <FormControlLabel
                                                     control={<MaterialUISwitch sx={{ml: 1}}
                                                                                checked={sms}
@@ -380,22 +413,22 @@ export function Cart({updateCartItemCount}) {
                                                   borderRadius: "10px",
                                                   border: "2px solid #211e1e",
                                                   padding: "5px",
-                                                  color: "#ffffff"
+                                                  color: "#ffffff",
                                               }}
-                                              placeholder="Add a comment"
+                                              placeholder="Ajouter un commentaire"
                                               onChange={(e) => setComment(e.target.value)}/>
                                 </div>
 
                                 <div className="summary-Price">
-                                    <h3>Total Price
-                                        : <b>{orderItems.reduce((accumulator, orderItem) => accumulator + orderItem.price, delivery ? 5 : 0)} €</b>
+                                    <h3>Prix Total
+                                        : <b>{orderItems.reduce((accumulator, orderItem) => accumulator + orderItem.price, orderType === "DELIVERY" ? 5 : 0)} €</b>
                                     </h3>
                                 </div>
 
                                 <button
                                     style={{cursor: unavailability ? 'not-allowed' : 'pointer'}}
                                     onClick={handleAddingNewOrder} className="summary-Button">
-                                    Order
+                                    Commander
                                 </button>
                             </>
                         }
@@ -403,9 +436,13 @@ export function Cart({updateCartItemCount}) {
                 </>
                 :
                 <div className="container d-flex flex-column align-items-center pt-5 text-center">
-                    <ProductionQuantityLimitsIcon style={{fontSize: '300px', color: 'white'}}/>
-                    <h1 style={{fontSize: '50px', color: 'white', fontWeight: "bold"}}>Your cart is currently empty</h1>
-                    <button className="menu-button">RETURN TO HOME</button>
+                    <ProductionQuantityLimitsIcon style={{fontSize: '300px', color: '#fdfdfe'}}/>
+                    <h1 style={{fontSize: '50px', color: 'white', fontWeight: "bold"}}>Votre panier est actuellement vide</h1>
+                    <button className="menu-button">
+                        <Link className="navbar-text text-decoration-none" to="/menu">
+                            RETOUR AU MENU
+                        </Link>
+                    </button>
                 </div>
             }
 

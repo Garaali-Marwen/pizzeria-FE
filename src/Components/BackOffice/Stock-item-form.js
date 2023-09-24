@@ -26,7 +26,7 @@ export function StockItemForm({onAdd}) {
     const [items, setItems] = useState([])
     useEffect(() => {
         Promise.all([
-            ItemService.getItemsByCategory('drinks'),
+            ItemService.getItemsByItemIngredientsIsNull(),
             IngredientService.getAllIngredients()
         ])
             .then(([drinksResponse, ingredientsResponse]) => {
@@ -78,20 +78,20 @@ export function StockItemForm({onAdd}) {
         <div className="container">
             <div>
                 <h1 className="card-title">
-                    Add item to stock
+                    Ajout d'article au stock
                 </h1>
                 <div className="border-top mb-5 mt-2"></div>
                 <form className="d-flex flex-column gap-3" onSubmit={handleSubmit(handleFormSubmit)}>
                     <FormControl style={{minWidth: "248px"}}
                                  error={!!(itemError && itemError.length)}>
-                        <InputLabel id="demo-simple-select-label">Item</InputLabel>
+                        <InputLabel id="demo-simple-select-label">Article</InputLabel>
                         <Select
                             {...register('item')}
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
                             value={stockItem.item || stockItem.ingredient || ''}
                             onChange={handleFormChange}
-                            label="Item"
+                            label="Article"
                             name="item"
                         >
                             {items.map((item, index) =>
@@ -117,7 +117,7 @@ export function StockItemForm({onAdd}) {
                             inputProps={{
                                 'aria-label': 'quantity',
                             }}
-                            placeholder="Quantity"
+                            placeholder="Quantité"
                             type="number" name="quantity" value={stockItem.quantity} onChange={handleFormChange}
                         />
                         {quantityError && <FormHelperText>{quantityError}</FormHelperText>}
@@ -125,7 +125,7 @@ export function StockItemForm({onAdd}) {
 
                     <Button type="submit" variant="contained"
                             endIcon={<i className="bx bx-plus-circle"></i>}>
-                        Add
+                        Ajouter
                     </Button>
                 </form>
             </div>

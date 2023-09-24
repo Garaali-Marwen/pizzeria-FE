@@ -1,16 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import '../../assets/styles/Carousel.css';
-import LunchDiningIcon from '@mui/icons-material/LunchDining';
-import LocalPizzaIcon from '@mui/icons-material/LocalPizza';
-import LocalBarIcon from '@mui/icons-material/LocalBar';
-import RestaurantIcon from '@mui/icons-material/Restaurant';
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CategoryService from "../../Services/CategoryService";
+import {Link, useNavigate} from "react-router-dom";
+import image1 from "../../assets/Images/1.jpg"
+import image2 from "../../assets/Images/2.jpg"
+import image3 from "../../assets/Images/3.jpg"
+import ConfigService from "../../Services/ConfigService";
 
 export function HomeCarousel() {
+    const navigate = useNavigate();
     const [activeIndex, setActiveIndex] = useState(0);
     const matches = useMediaQuery('(min-width:500px)');
-    const [size, setSize] = useState('50px')
+    const [size, setSize] = useState('60px')
+    const [categories, setCategories] = useState([])
+
+
     useEffect(() => {
         if (!matches)
             setSize("20px")
@@ -19,18 +25,24 @@ export function HomeCarousel() {
         setActiveIndex(selectedIndex);
     };
 
+    useEffect(() => {
+        CategoryService.getAllCategories()
+            .then(response => setCategories(response.data))
+            .catch(error => console.log(error))
+    }, []);
+
     const carouselData = [
         {
             id: 1,
-            imageSrc: 'https://images2.alphacoders.com/276/276652.jpg',
+            imageSrc: image1,
         },
         {
             id: 2,
-            imageSrc: 'https://images3.alphacoders.com/276/276645.jpg',
+            imageSrc: image2,
         },
         {
             id: 3,
-            imageSrc: 'https://images7.alphacoders.com/596/596343.jpg',
+            imageSrc: image3,
         },
     ];
 
@@ -46,35 +58,56 @@ export function HomeCarousel() {
         ));
     };
 
+    const [carouselImages, setCarouselImages] = useState([])
+    useEffect(() => {
+        ConfigService.getConfig()
+            .then(response => setCarouselImages(response.data[0].carouselImages))
+            .catch(error => console.log(error))
+    }, []);
+
+    const redirectToMenuWithCategory = (categoryName) => {
+        navigate(`/menu?category=${categoryName}`);
+    };
+
     return (
         <div className="position-relative">
             <div className="categories">
                 <div className="categories-icons">
-                    <div className="category-icon">
-                        <LunchDiningIcon style={{fontSize: size}} />
-                        <h5>Burgers</h5>
-                    </div>
-                    <div className="category-icon">
-                        <LocalPizzaIcon style={{fontSize: size}} />
-                        <h5>Pizzas</h5>
-                    </div>
-                    <div className="category-icon">
-                        <RestaurantIcon style={{fontSize: size}} />
-                        <h5>Dishes</h5>
-                    </div>
-                    <div className="category-icon">
-                        <LocalBarIcon style={{fontSize: size}} />
-                        <h5>Drinks</h5>
-                    </div>
+                    {categories.map(category => {
+                            if (category.items.length)
+                                return (
+                                    <div onClick={() => redirectToMenuWithCategory(category.name)} key={category.id}
+                                         className="category-icon">
+                                        <img src={'data:image/png;base64,' + category.icon.imageBytes}
+                                             style={{height: size, width: size}}/>
+                                        <h5 style={{textTransform: 'uppercase'}}>{category.name}</h5>
+                                    </div>)
+                        }
+                    )}
                 </div>
                 <div className="text-center">
-                    <h1>Order Today, While It's Hot!</h1>
-                    <h4>Eat Delicious & Tasty Fast-Food With Real Flavours</h4>
-                    <button className="menu-button">VIEW OUR MENU</button>
+                    <h1>La Magie Des Saveurs Dans Chaque Bouchée!</h1>
+                    <button className="menu-button">
+                        <Link className="navbar-text text-decoration-none" to="/menu">
+                            VOIR NOTRE MENU
+                        </Link>
+                    </button>
                 </div>
             </div>
             <Carousel controls={false} indicators={false} activeIndex={activeIndex} onSelect={handleSelect}>
-                {renderCarouselItems()}
+                {carouselImages.length > 0 ?
+                    carouselImages.map(image => (
+                        <Carousel.Item key={image.id}>
+                            <img
+                                className="d-block w-100 carousel-image"
+                                src={'data:image/png;base64,' + image.imageBytes}
+                                alt=""
+                            />
+                        </Carousel.Item>
+                    ))
+                    :
+                    renderCarouselItems()
+                }
             </Carousel>
 
         </div>

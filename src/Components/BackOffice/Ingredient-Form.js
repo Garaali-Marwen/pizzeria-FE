@@ -102,9 +102,9 @@ export function IngredientForm({ingredientUpdate, onUpdate, onAdd}) {
             <div>
                 <h1 className="card-title">
                     {!ingredientUpdate ?
-                        'Add new ingredient'
+                        'Ajout d\'ingrédient'
                         :
-                        'Edit ingredient'}
+                        'Modification d\'ingrédient'}
                 </h1>
                 <div className="border-top mb-5 mt-2"></div>
                 <form onSubmit={!ingredientUpdate ? submitHandler : editHandler}>
@@ -115,11 +115,11 @@ export function IngredientForm({ingredientUpdate, onUpdate, onAdd}) {
                            value={ingredient.name}
                            fullWidth
                            id="standard-required"
-                           label="Ingredient name"
+                           label="Nom"
                            variant="standard"
                        />
                        <FormControl sx={{m: 1, width: '100px'}} variant="standard">
-                           <InputLabel htmlFor="demo-customized-select-native">Unit</InputLabel>
+                           <InputLabel htmlFor="demo-customized-select-native">Unité</InputLabel>
                            <Select
                                name="unit"
                                labelId="demo-customized-select-label"
@@ -141,7 +141,7 @@ export function IngredientForm({ingredientUpdate, onUpdate, onAdd}) {
                             className="label-file"
                             style={{border: !ingredientImage ? '#575757 dashed 1px' : 'none'}}
                         >
-                            {!ingredientImage && 'Choose Ingredient image'}
+                            {!ingredientImage && 'Choisissez l\'image de l\'ingrédient'}
                             <img alt="" src={ingredientImage}/>
                             {ingredientImage && (<span className="edit-icon">
                   <i className="bx bxs-edit"></i>
@@ -158,9 +158,9 @@ export function IngredientForm({ingredientUpdate, onUpdate, onAdd}) {
                                     <i className='bx bxs-edit'></i>
                             }>
                         {!ingredientUpdate ?
-                            'Add'
+                            'Ajouter'
                             :
-                            'Edit'}
+                            'Modifier'}
                     </Button>
                 </form>
             </div>

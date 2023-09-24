@@ -8,6 +8,9 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .action-button-1 , .action-button-2{
     border: none;

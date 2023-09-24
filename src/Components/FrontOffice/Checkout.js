@@ -18,7 +18,7 @@ export default function Checkout({order}) {
         })
             .then((res) => res.json())
             .then((data) => setClientSecret(data.clientSecret));
-    }, []);
+        }, []);
 
     const appearance = {
         theme: 'night',

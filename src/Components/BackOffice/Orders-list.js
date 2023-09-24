@@ -38,7 +38,6 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 export function OrdersList() {
-
     const [orderContent, setOrderContent] = useState({
         content: [],
         totalPages: '',
@@ -61,11 +60,7 @@ export function OrdersList() {
             () => {
                 subscription = stompClient.subscribe('/newOrder', (message) => {
                     const newOrder = JSON.parse(message.body);
-                    OrderService.getOrderById(newOrder)
-                        .then(response => {
-                            changePage()
-                        })
-                        .catch(error => console.log(error))
+                    changePage()
                 });
             },
             (error) => {
@@ -161,8 +156,10 @@ export function OrdersList() {
                         </div>
                     </div>
                     :
-                    <h1 className="w-100 text-center" style={{fontSize: '50px', fontWeight: "bold"}}>No orders
-                        for today!</h1>
+                    <div className="d-flex flex-column gap-4 align-items-center justify-content-center" style={{minHeight: "100%"}}>
+                        <h1 className="w-100 text-center" style={{fontSize: '30px', fontWeight: "bold"}}>Pas de commandes pour aujourd'hui !</h1>
+                        <i style={{fontSize: 200, color: "#32312f"}} className='bx bx-error-circle'></i>
+                    </div>
                 }
 
             </div>

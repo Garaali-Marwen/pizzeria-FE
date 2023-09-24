@@ -16,19 +16,20 @@ import SnackbarMessage from "../SnackbarMessage";
 import {useEffect, useState} from "react";
 import {CategoryForm} from "./Category-Form";
 import CategoryService from "../../Services/CategoryService";
+import {Element, scroller} from "react-scroll";
 
 export function CategoriesList() {
 
-    const [update, setUpdate] = useState(false)
-    const [categoryUpdate, setCategoryUpdate] = useState(null)
     const [message, setMessage] = useState('')
     const [addCategory, setAddCategory] = useState(false)
     const [categories, setCategories] = useState([])
+    const [category, setCategory] = useState(null)
+
     useEffect(() => {
         CategoryService.getAllCategories()
             .then(response => setCategories(response.data))
             .catch(error => console.log(error))
-    }, [addCategory, update]);
+    }, [addCategory, category]);
     const handleSnackBarClose = () => {
         setMessage('')
     }
@@ -40,14 +41,20 @@ export function CategoriesList() {
         setAddCategory(!addCategory)
     }
 
-    const handleUpdatingCategory = (category) => {
-        setUpdate(!update)
-        setCategoryUpdate(category)
-    }
     const handleCategoryUpdated = () => {
-        setUpdate(!update)
+        setCategory(null)
         setMessage('Category updated Successfully')
     }
+
+    const handleEditCategory = (category) => {
+        setCategory(category)
+        scroller.scrollTo("categoryForm", {
+            duration: 500,
+            smooth: true,
+        });
+    }
+
+
     return (
         <div className="h-100 p-2">
             <div className="w-100 p-5">
@@ -66,8 +73,8 @@ export function CategoriesList() {
                     <Table size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
-                                <TableCell align="left"><b>Name</b></TableCell>
-                                <TableCell align="left"><b>Items</b></TableCell>
+                                <TableCell align="left"><b>Nom</b></TableCell>
+                                <TableCell align="left"><b>Articles</b></TableCell>
                                 <TableCell align="left"></TableCell>
                             </TableRow>
                         </TableHead>
@@ -86,7 +93,7 @@ export function CategoriesList() {
                                             </IconButton>
                                         </Tooltip>*/}
                                         <Tooltip title="Edit">
-                                            <IconButton onClick={() => handleUpdatingCategory(category)} aria-label="edit">
+                                            <IconButton onClick={() => handleEditCategory(category)} aria-label="edit">
                                                 <ModeEditIcon/>
                                             </IconButton>
                                         </Tooltip>
@@ -98,21 +105,16 @@ export function CategoriesList() {
 
                 </TableContainer>
 
+                <Element name="categoryForm">
+                    {category && <CategoryForm categoryUpdate={category} onUpdate={handleCategoryUpdated}/>}
+                </Element>
+
                 <Modal style={{minWidth: '50%'}} isOpen={addCategory} toggle={handleAddingCategory}>
                     <ModalHeader
                         style={{position: "absolute", border: "none", textAlign: "end", width: '100%', zIndex: 99}}
                         toggle={handleAddingCategory}></ModalHeader>
                     <ModalBody>
                         <CategoryForm onAdd={handleCategoryAdded}/>
-                    </ModalBody>
-                </Modal>
-
-                <Modal style={{minWidth: '50%'}} isOpen={update} toggle={handleUpdatingCategory}>
-                    <ModalHeader
-                        style={{position: "absolute", border: "none", textAlign: "end", width: '100%', zIndex: 99}}
-                        toggle={handleUpdatingCategory}></ModalHeader>
-                    <ModalBody>
-                        <CategoryForm categoryUpdate={categoryUpdate} onUpdate={handleCategoryUpdated}/>
                     </ModalBody>
                 </Modal>
 
