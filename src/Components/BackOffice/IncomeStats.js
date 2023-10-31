@@ -36,7 +36,9 @@ export function IncomeStats() {
                 break;
             case "month": {
                 TransactionService.getIncomeForActualMonth()
-                    .then(response => setIncome(response.data))
+                    .then(response => {
+                        setIncome(response.data)
+                    })
                     .catch(error => console.log(error))
                 TransactionService.getTransactionsForActualMonth()
                     .then(response => setData(response.data))

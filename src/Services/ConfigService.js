@@ -5,7 +5,7 @@ const PIZZERIA_API_BASE_URL = 'http://localhost:8080/api/config'
 class ConfigService {
 
     getConfig(){
-        return axios.get(`${PIZZERIA_API_BASE_URL}/all`, { headers: {"Authorization" : `Bearer ${UserService.getToken()}`} })
+        return axios.get(`${PIZZERIA_API_BASE_URL}/all`)
     }
 
     editConfigImages(formData) {

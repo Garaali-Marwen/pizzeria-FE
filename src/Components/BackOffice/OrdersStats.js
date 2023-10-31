@@ -59,7 +59,7 @@ export function OrdersStats() {
                 <BarChart dataOrders={data}/>
             </div>
             <div className="text-incomeOrders">
-                <h5>{data.length}</h5>
+                <h5>{data.reduce((accumulator, [date, value]) => {return accumulator + value;}, 0)}</h5>
                 <b>Commandes</b>
             </div>
         </div>
