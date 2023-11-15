@@ -54,10 +54,10 @@ export function FrontOffice() {
                 }
                 {userRole === "CLIENT" &&
                     <>
-                        <Route path="/cart" element={<Cart updateCartItemCount={updateCartItemCount}/>}/>
                         <Route path="/payment/success" element={<PaymentSuccess/>}/>
                     </>
                 }
+                <Route path="/cart" element={<Cart updateCartItemCount={updateCartItemCount}/>}/>
                 <Route path="/contact" element={<Contact/>}/>
                 <Route path="/offers" element={<OffersList/>}/>
                 <Route path="*" element={<NotFound/>}/>
